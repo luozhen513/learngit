@@ -1,0 +1,66 @@
+- git简介
+	- Git是分布式版本控制系统，记录文本的修改历史
+	- 分布式不用联网，每个人都有版本库，服务器仅仅用于交换
+- git安装
+	- git不翻墙的下载：https://npm.taobao.org/mirrors/git-for-windows/
+	- 默认安装后，输入以下两行命令
+		$ git config --global user.name "Your Name"
+		$ git config --global user.email "email@example.com"
+- 版本控制
+	- 创建版本库
+		- 只跟踪文本文件的改动，word是二进制，不行。
+		- 创建
+			- 创建目录
+				$ mkdir learngit
+				$ cd learngit
+				$ pwd
+			- 初始化
+				$ git init
+			- .git隐藏
+				C:/Users/tcsoft/learngit/.git/  可进入文件夹
+			- 文本文件最好用notepad编码
+			
+		- 添加
+			- 文本放到learngit里，不能放到.git
+			- 添加 $ git add readme.txt
+			- 提交 $ git commit -m "wrote a readme file"
+		- 修改
+			- 先cd到learngit，打开git默认在.git文件夹
+			- 修改文本内容后，再添加并提交，修改m后的描述（描述不能用中文）
+		- 查看版本信息
+			- git log 作者＋id
+			- git log --pretty=oneline
+		- 还原历史版本
+			- git reset --hard HEAD^  (还可以写成HEAD~100)
+			- 如果还没关闭git窗口，可以用序列号，reset回到最新版本。
+			- 关机之后，找回新版本：git reflog里有序列号（如果没用--hard 就找不回新版本了）
+		- 出现冒号
+			说明内容没显示完，可用↓往下翻。按q结束
+	- 分区
+		- 三个分区
+			工作区、暂存区、master
+			工作区修改后，add到暂存区，commit把暂存区提交到链表，指针指向head
+	- 撤销修改
+		- git checkout -- file 已经add过，撤销到add的版本；没add过，撤销到commit的版本。
+		- git reset HEAD <file> 把暂存区的修改回退到工作区
+		- 以上两步连着用，可先回退到工作区，再撤销工作区的内容
+	- 删除文件
+		- 直接删除工作区文件或者用re 'file'，
+		- 可用git checkout -- file 恢复文件
+		- 如果删除之后，commit了，版本库就删除了。
+- 远程仓库
+	- github
+		- git是分布式版本控制系统；hub是中心。
+		- github提供仓库托管服务。
+	- 创建保密协议
+		- 如果learngit同级目录没有.ssh
+			使用ssh-keygen -t rsa -C "youremail@example.com"创建
+			里面会有id_rsa.pub和id_rsa，pub是公共密匙，用于网站身份验证。
+	- github使用ssh
+		- gitbuh上，设置里面增加ssh，把id_rsa.pub里的内容粘贴到ssh里
+	- 关联本地仓库
+		- 在本地的learngit仓库下运行命令：
+		- git remote add origin git@github.com:账户名/learngit.git
+	- 上传
+		$ git push -u origin master
+		以后：git push origin master
